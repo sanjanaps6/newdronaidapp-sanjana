@@ -1,0 +1,98 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../login/login.dart';
+import 'signup_controller.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+
+class SignUpScreen extends StatelessWidget {
+  final SignupController signupController = Get.put(SignupController());
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: size.height * 0.03),
+            SvgPicture.asset(
+              'lib/assets/icons/signup.svg',
+              height: size.height * 0.35,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.1, vertical: size.height * 0.03),
+              child: Form(
+                child: Column(
+                  children: [
+                    _buildTextField(signupController.hospitalNameController, "Hospital Name", Icons.local_hospital),
+                    _buildTextField(signupController.emailController, "Email", Icons.email),
+                    Obx(() => _buildTextField(
+                        signupController.passwordController,
+                        "Password",
+                        Icons.lock,
+                        isPassword: true,
+                        obscureText: signupController.obscureText.value,
+                        toggleObscureText: () {
+                          signupController.obscureText.value = !signupController.obscureText.value;
+                        }
+                    )),
+                    _buildTextField(signupController.addressController, "Address", Icons.location_on),
+                    _buildTextField(signupController.phoneController, "Phone Number", Icons.phone),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.1, vertical: size.height * 0.02),
+              child: Obx(() => ElevatedButton(
+                onPressed: signupController.isLoading.value ? null : () {
+                  signupController.signup();
+                },
+                child: signupController.isLoading.value
+                    ? CircularProgressIndicator(color: Colors.white)
+                    : Text("SIGN UP", style: TextStyle(fontSize: 18)), // Make the button text bigger
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(size.width * 0.8, 50), // Increase button size
+                ),
+              )),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.1, vertical: size.height * 0.02),
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => LoginScreen()); // Use GetX to navigate to login screen
+                },
+                child: Text(
+                  "Already has an account? LOGIN",
+                  style: TextStyle(color: Colors.deepPurple, fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField(TextEditingController controller, String hintText, IconData icon, {bool isPassword = false, bool obscureText = false, Function? toggleObscureText}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          prefixIcon: Icon(icon, color: Colors.deepPurple),
+          hintText: hintText,
+          suffixIcon: isPassword ? IconButton(
+            icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
+            onPressed: () {
+              if (toggleObscureText != null) toggleObscureText();
+            },
+          ) : null,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
+    );
+  }
+}
