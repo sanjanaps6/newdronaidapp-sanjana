@@ -6,4 +6,4 @@ const primaryColor = Colors.white;
 const secondaryColor = Colors.grey;
 const deepPurple = Colors.deepPurple;
 const buttonTextColor = Colors.white;
-const hintTextColor = Colors.grey; // You can add more custom colors as needed
+const hintTextColor = Colors.grey; 
