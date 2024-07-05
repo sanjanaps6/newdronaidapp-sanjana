@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../utils/colors.dart'; // Import the colors.dart file
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -17,7 +18,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: size.height * 0.1),
             Text(
               "LOGIN",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: deepPurple),
             ),
             SizedBox(
               height: size.height * 0.03,
@@ -53,9 +54,10 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () {
                   // Add your login logic here
                 },
-                child: Text("LOGIN", style: TextStyle(fontSize: 18)), // Make the button text bigger
+                child: Text("LOGIN", style: TextStyle(fontSize: 18, color: buttonTextColor)),
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(size.width * 0.8, 50), // Increase button size
+                  backgroundColor: deepPurple,
+                  minimumSize: Size(size.width * 0.8, 50),
                 ),
               ),
             ),
@@ -67,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                 },
                 child: Text(
                   "Not registered? Sign Up",
-                  style: TextStyle(color: Colors.deepPurple, fontSize: 16),
+                  style: TextStyle(color: deepPurple, fontSize: 16),
                 ),
               ),
             ),
@@ -84,8 +86,9 @@ class LoginScreen extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          prefixIcon: Icon(icon, color: Colors.deepPurple),
+          prefixIcon: Icon(icon, color: deepPurple),
           hintText: hintText,
+          hintStyle: TextStyle(color: hintTextColor),
           suffixIcon: isPassword ? IconButton(
             icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
             onPressed: () {

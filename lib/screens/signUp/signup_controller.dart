@@ -13,8 +13,6 @@ class SignupController extends GetxController {
 
   void signup() {
     isLoading.value = true;
-    // Add your sign-up logic here
-    // After signup process
     isLoading.value = false;
   }
 }

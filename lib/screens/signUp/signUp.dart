@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../login/login.dart';
 import 'signup_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import '../../utils/colors.dart';
 
 class SignUpScreen extends StatelessWidget {
   final SignupController signupController = Get.put(SignupController());
@@ -50,10 +50,11 @@ class SignUpScreen extends StatelessWidget {
                   signupController.signup();
                 },
                 child: signupController.isLoading.value
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text("SIGN UP", style: TextStyle(fontSize: 18)), // Make the button text bigger
+                    ? CircularProgressIndicator(color: buttonTextColor)
+                    : Text("SIGN UP", style: TextStyle(fontSize: 18, color: buttonTextColor)),
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(size.width * 0.8, 50), // Increase button size
+                  backgroundColor: deepPurple,
+                  minimumSize: Size(size.width * 0.8, 50),
                 ),
               )),
             ),
@@ -65,7 +66,7 @@ class SignUpScreen extends StatelessWidget {
                 },
                 child: Text(
                   "Already has an account? LOGIN",
-                  style: TextStyle(color: Colors.deepPurple, fontSize: 16),
+                  style: TextStyle(color: deepPurple, fontSize: 16),
                 ),
               ),
             ),
@@ -82,8 +83,9 @@ class SignUpScreen extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          prefixIcon: Icon(icon, color: Colors.deepPurple),
+          prefixIcon: Icon(icon, color: deepPurple),
           hintText: hintText,
+          hintStyle: TextStyle(color: hintTextColor),
           suffixIcon: isPassword ? IconButton(
             icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
             onPressed: () {
